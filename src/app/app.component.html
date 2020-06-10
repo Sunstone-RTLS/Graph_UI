@@ -1,0 +1,14 @@
+<div>
+  Json Graph Lib Test Project
+  <div style="display: flex; flex-direction: row; height: 90vh">
+    <div style="flex-grow: 1">
+      <jge-json-graph-editor [graph]="graph" [editorSettings]="settings"></jge-json-graph-editor>
+    </div>
+    <div style="width: 500px">
+      <button (click)="update()">Update</button>
+      <input type="checkbox" style="margin-left: 10px" id="checkbox-editable" [(ngModel)]="editable" (ngModelChange)="updateSettings()">
+      <label for="checkbox-editable"> Editable</label>
+      <textarea type="text" style="width:100%;height: 100%" [(ngModel)]="input"></textarea>
+    </div>
+  </div>
+</div>

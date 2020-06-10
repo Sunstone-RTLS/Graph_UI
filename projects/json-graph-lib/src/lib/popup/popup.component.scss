@@ -1,0 +1,42 @@
+.jge-popup-header {
+  font-size: medium;
+  font-weight: bolder;
+}
+
+.jge-popup-form {
+  max-height: 200px;
+  overflow: auto;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding: 5px 0px;
+}
+
+.jge-popup-fieldset {
+  margin-top: 5px;
+  border: 1px solid #ddd;
+}
+
+.jge-popup-fieldset-legend {
+  font-weight: bold;
+}
+
+.jge-popup-input-container {
+  display: flex;
+  margin: 5px 0px;
+  align-items: baseline;
+}
+
+.jge-popup-input-label {
+  flex: 1;
+  text-align: right;
+}
+
+.jge-popup-input {
+  margin: 0px 5px;
+}
+
+.jge-popup-save-button-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
