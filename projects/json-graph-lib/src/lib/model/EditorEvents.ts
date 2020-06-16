@@ -11,3 +11,8 @@ export interface EdgeChangeEvent {
   updated: Edge;
   updatedGraph: JsonGraph;
 }
+
+export interface EdgeCreateEvent {
+  created: Edge;
+  updatedGraph: JsonGraph;
+}

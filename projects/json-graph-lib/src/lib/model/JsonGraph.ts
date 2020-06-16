@@ -1,5 +1,6 @@
 export interface JsonGraph {
   directed:boolean;
+  multiEdge:boolean;
   nodes:Node[];
   edges:Edge[];
 }
@@ -10,6 +11,7 @@ export interface Node {
 }
 
 export interface Edge {
+  id?:string;
   source:string;
   target:string;
   metadata: Metadata&any;

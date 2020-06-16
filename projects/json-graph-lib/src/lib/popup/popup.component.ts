@@ -11,6 +11,7 @@ export class PopupComponent implements OnInit {
 
   @Input() editable: boolean;
   @Input() header: string;
+  @Input() subheader: string;
   @Input() model: object;
   @Output() modelChange: EventEmitter<object> = new EventEmitter<object>();
   public form: FormGroup;
@@ -58,18 +59,5 @@ export class PopupComponent implements OnInit {
     this.modelChange.emit(form.value.content);
   }
 
-  // printReturnParent(parent, name, templatelocation) {
-  //   console.log('-----------------')
-  //   console.log('Show template location: ' + templatelocation);
-  //   if (parent) {
-  //     console.log('Show parent: ');
-  //     console.log(parent);
-  //   } else {
-  //     console.log('Show parent: ' + parent);
-  //   }
-  //   console.log('Show name: ' + name);
-  //   console.log('-----------------')
-  //   return parent;
-  // }
 
 }

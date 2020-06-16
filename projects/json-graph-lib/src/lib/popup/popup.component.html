@@ -1,47 +1,50 @@
-<div>
-  <div class="jge-popup-header">{{header}}</div>
+<div class="jge-popup-header-container">
+  <div *ngIf="header" class="jge-popup-header">{{header}}</div>
+  <div *ngIf="subheader" class="jge-popup-subheader">{{subheader}}</div>
 </div>
-<form id="form" class="jge-popup-form" [formGroup]="form" *ngIf="form" (submit)="onSubmit(form)">
-  <ng-container [ngTemplateOutlet]="formItemTemplate"
-                [ngTemplateOutletContext]="{parent: form, name: 'content', model: model, level: 0}">
-  </ng-container>
-  <ng-template #formItemTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
-    <ng-container [ngTemplateOutlet]="isGroup(parent.get(name)) ? groupTemplate : controlTemplate"
-                  [ngTemplateOutletContext]="{parent: parent, name: name, model: model, level: level}">
+<form [formGroup]="form" *ngIf="form" (submit)="onSubmit(form)">
+  <div class="jge-popup-form-body">
+    <ng-container [ngTemplateOutlet]="formItemTemplate"
+                  [ngTemplateOutletContext]="{parent: form, name: 'content', model: model, level: 0}">
     </ng-container>
-  </ng-template>
-  <ng-template #groupTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
-    <!--    only format inner form groups with fieldset and legend-->
-    <div class="jge-popup-form-content-container" *ngIf="level === 0" [formGroup]="parent.get(name)">
-      <ng-container [ngTemplateOutlet]="groupControlsTemplate"
+    <ng-template #formItemTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
+      <ng-container [ngTemplateOutlet]="isGroup(parent.get(name)) ? groupTemplate : controlTemplate"
                     [ngTemplateOutletContext]="{parent: parent, name: name, model: model, level: level}">
-      </ng-container>
-    </div>
-    <fieldset class="jge-popup-fieldset" *ngIf="level !== 0" [formGroup]="parent.get(name)">
-      <legend class="jge-popup-fieldset-legend">{{name}}</legend>
-      <ng-container [ngTemplateOutlet]="groupControlsTemplate"
-                    [ngTemplateOutletContext]="{parent: parent, name: name, model: model, level: level}">
-      </ng-container>
-    </fieldset>
-    <ng-template #groupControlsTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
-      <ng-container *ngFor="let controlName of groupControlNames(parent.get(name))">
-        <ng-container [ngTemplateOutlet]="formItemTemplate"
-                      [ngTemplateOutletContext]="{parent: parent.get(name), name: controlName, model: model[name], level: level + 1}">
-        </ng-container>
       </ng-container>
     </ng-template>
-  </ng-template>
-  <ng-template #controlTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
-    <div class="jge-popup-input-container" [formGroup]="parent">
+    <ng-template #groupTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
+      <!--    only format inner form groups with fieldset and legend-->
+      <div class="jge-popup-form-content-container" *ngIf="level === 0" [formGroup]="parent.get(name)">
+        <ng-container [ngTemplateOutlet]="groupControlsTemplate"
+                      [ngTemplateOutletContext]="{parent: parent, name: name, model: model, level: level}">
+        </ng-container>
+      </div>
+      <fieldset class="jge-popup-fieldset" *ngIf="level !== 0" [formGroup]="parent.get(name)">
+        <legend class="jge-popup-fieldset-legend">{{name}}</legend>
+        <ng-container [ngTemplateOutlet]="groupControlsTemplate"
+                      [ngTemplateOutletContext]="{parent: parent, name: name, model: model, level: level}">
+        </ng-container>
+      </fieldset>
+      <ng-template #groupControlsTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
+        <ng-container *ngFor="let controlName of groupControlNames(parent.get(name))">
+          <ng-container [ngTemplateOutlet]="formItemTemplate"
+                        [ngTemplateOutletContext]="{parent: parent.get(name), name: controlName, model: model[name], level: level + 1}">
+          </ng-container>
+        </ng-container>
+      </ng-template>
+    </ng-template>
+    <ng-template #controlTemplate let-parent="parent" let-name="name" let-model="model" let-level="level">
+      <div class="jge-popup-input-container" [formGroup]="parent">
         <label class="jge-popup-input-label">{{name}}</label>
         <ng-container [ngSwitch]="typeOf(model[name])">
           <input class="jge-popup-input" type="text" *ngSwitchCase="'string'" [formControlName]="name">
           <input class="jge-popup-input" type="number" *ngSwitchCase="'number'" [formControlName]="name">
           <input class="jge-popup-input" type="checkbox" *ngSwitchCase="'boolean'" [formControlName]="name">
         </ng-container>
-    </div>
-  </ng-template>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf=editable class="jge-popup-save-button-container">
+    <button class="jge-popup-save-button" type="submit">Save</button>
+  </div>
 </form>
-<div *ngIf=editable class="jge-popup-save-button-container">
-  <button class="jge-popup-save-button" type="submit" form="form">Save</button>
-</div>
